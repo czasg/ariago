@@ -1,0 +1,3 @@
+# github.com/czasg/snow v0.0.0-20211124074533-46a0cb1f45cf
+## explicit
+github.com/czasg/snow
