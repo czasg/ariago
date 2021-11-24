@@ -14,7 +14,7 @@ import (
 var _ Aria = (*Aria2c)(nil)
 
 type Aria2c struct {
-	RPCUrl string `default:"http://localhost:6800/jsonrpc"`
+	RPCUrl string `default:"http://localhost:6800"`
 }
 
 func (a *Aria2c) AddURI(ctx context.Context, uri string, params map[string]interface{}) (*AddURIResponse, error) {
@@ -25,7 +25,7 @@ func (a *Aria2c) AddURI(ctx context.Context, uri string, params map[string]inter
 		params["out"] = fmt.Sprintf("%d", snow.Next())
 	}
 	body, err := json.Marshal(map[string]interface{}{
-		"id":      "",
+		"id":      params["out"],
 		"jsonrpc": "2.0",
 		"method":  "aria2.addUri",
 		"params": []interface{}{
@@ -58,6 +58,7 @@ func (a *Aria2c) AddURI(ctx context.Context, uri string, params map[string]inter
 		err = errors.New(response.Error.Message)
 		return nil, err
 	}
+	response.Url = fmt.Sprintf("%s/%s", a.RPCUrl, response.File)
 	return &response, nil
 }
 

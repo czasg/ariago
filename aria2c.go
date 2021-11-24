@@ -9,6 +9,8 @@ type Aria interface {
 
 type AddURIResponse struct {
 	GID     string `json:"result"`
+	File    string `json:"id"`
+	Url     string `json:"-"`
 	Version string `json:"jsonrpc"`
 	Error   struct {
 		Code    int    `json:"code"`
